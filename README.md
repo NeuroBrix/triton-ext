@@ -18,6 +18,11 @@ Issues we found and reported upstream while running the backend:
 
 We track upstream and send our fixes upstream.
 
+**Maintainer:** Hocine Benkelaya ([benkelaya](https://github.com/benkelaya)) for the NeuroBrix project
+([github.com/NeuroBrix/neurobrix](https://github.com/NeuroBrix/neurobrix), [neurobrix.es](https://neurobrix.es)).
+
+**Covered for now:** Python 3.12 only, macOS on Apple silicon (arm64). Tested on macOS 27 with an M4 Pro.
+
 **Licence:** unchanged. MIT Expat, as in this repository's [LICENSE](LICENSE), with the Kernelize and Meta copyrights kept. The
 `backend/AppleGPU` directory carries no licence file of its own, so the repository's MIT licence covers it.
 
