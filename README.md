@@ -1,33 +1,34 @@
 # NeuroBrix build of the Apple GPU (Metal) backend for Triton
 
-This fork exists to build and ship the Apple GPU backend that the [NeuroBrix](https://github.com/NeuroBrix) engine runs on macOS.
-It is not a separate project and not an official Triton distribution.
+This is the NeuroBrix build of the Apple GPU backend for Triton: the backend the [NeuroBrix](https://github.com/NeuroBrix/neurobrix)
+engine runs on macOS, built, tested, measured and shipped by the NeuroBrix project. It is not an official Triton distribution.
 
-**The backend is the work of [imperatormk](https://github.com/imperatormk)** (Darko Simonovski): the Apple GPU backend for Triton
-proposed upstream as [triton-lang/triton-ext#126](https://github.com/triton-lang/triton-ext/pull/126). Branch `nbx/apple` is that
-backend at `b06cbb0d` plus one fix of ours, nothing else:
+**Maintainer:** Hocine Benkelaya ([benkelaya](https://github.com/benkelaya)), for the NeuroBrix project
+([github.com/NeuroBrix/neurobrix](https://github.com/NeuroBrix/neurobrix), [neurobrix.es](https://neurobrix.es)).
+
+It is based on the Apple GPU backend proposed upstream in
+[triton-lang/triton-ext#126](https://github.com/triton-lang/triton-ext/pull/126). Branch `nbx/apple` carries our fix on top:
 
 - a chained `tt.addptr` keeps an i64 offset 64-bit, [triton-lang/triton-ext#181](https://github.com/triton-lang/triton-ext/issues/181),
-  sent to the backend's author as [imperatormk/triton-ext#32](https://github.com/imperatormk/triton-ext/pull/32).
+  sent upstream as [imperatormk/triton-ext#32](https://github.com/imperatormk/triton-ext/pull/32).
 
-Issues we found and reported upstream while running the backend:
+Issues we found and reported upstream while running the backend across the NeuroBrix catalogue:
 [#130](https://github.com/triton-lang/triton-ext/issues/130) (a pointer loaded from a tensor reads zeros),
 [#147](https://github.com/triton-lang/triton-ext/issues/147) (a polled flag never sees another program's store in the same launch),
 [#156](https://github.com/triton-lang/triton-ext/issues/156) (autoreleased buffer references outside any pool),
 [#181](https://github.com/triton-lang/triton-ext/issues/181) (the i64 offset above).
 
-We track upstream and send our fixes upstream.
+We send our fixes upstream.
 
-**Maintainer:** Hocine Benkelaya ([benkelaya](https://github.com/benkelaya)) for the NeuroBrix project
-([github.com/NeuroBrix/neurobrix](https://github.com/NeuroBrix/neurobrix), [neurobrix.es](https://neurobrix.es)).
+**Install:** `python -m nbxtensor install-metal` installs the wheels below into the active environment.
 
-**Covered for now:** Python 3.12 only, macOS on Apple silicon (arm64). Tested on macOS 27 with an M4 Pro.
+**Wheels:** the releases of this repository carry two macOS arm64 wheels, `triton` 3.8.0 built with `TRITON_EXT_ENABLED=1`
+(Triton's own MIT licence inside) and the backend packaged as `nbx-triton-apple`, each with its sha256 in the release notes.
+
+**Covered for now:** Python 3.12 only, macOS 15 or later on Apple silicon (arm64). Tested on macOS 27 with an M4 Pro.
 
 **Licence:** unchanged. MIT Expat, as in this repository's [LICENSE](LICENSE), with the Kernelize and Meta copyrights kept. The
 `backend/AppleGPU` directory carries no licence file of its own, so the repository's MIT licence covers it.
-
-**Wheels:** the releases of this fork carry two macOS arm64 wheels, `triton` 3.8.0 built with `TRITON_EXT_ENABLED=1` (Triton's own
-MIT licence inside) and this backend packaged as `nbx-triton-apple`, each with its sha256 in the release notes.
 
 ---
 
